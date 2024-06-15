@@ -3,7 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +16,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        DB::table('users')->insert([
+            'name' => 'Supardi Bengkel',
+            'email' => 'admin@diop.web.id',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'address' => 'Jl. Apa Kek',
+            'birthdate' => '1990-09-09',
+            'phone' => '081234567890',
+            'role' => 'admin',
+            'created_by' => 'Seeder',
+            'updated_by' => 'Seeder',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory(10)->create();
+
+        $this->call([
+            SportSeeder::class,
+            VenueSeeder::class,
+            FieldSeeder::class,
+            ScheduleSeeder::class,
+            OrderSeeder::class,
+            TransactionSeeder::class,
+        ]);
     }
 }
