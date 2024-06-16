@@ -13,7 +13,8 @@ class FieldController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.field');
+        $fields = Field::all();
+        return view('pages.admin.field', compact('fields'));
     }
 
     /**
@@ -29,7 +30,8 @@ class FieldController extends Controller
      */
     public function store(StoreFieldRequest $request)
     {
-        //
+        $field = Field::create($request->validated());
+        return redirect()->route('field.index')->with('success', 'Field created successfully');
     }
 
     /**
@@ -53,7 +55,11 @@ class FieldController extends Controller
      */
     public function update(UpdateFieldRequest $request, Field $field)
     {
-        //
+        if ($field) {
+            $field->update($request->validated());
+            return redirect()->route('field.index')->with('success', 'Field updated successfully');
+        }
+        return redirect()->route('field.index')->with('error', 'Field not found');
     }
 
     /**
@@ -61,6 +67,10 @@ class FieldController extends Controller
      */
     public function destroy(Field $field)
     {
-        //
+        if ($field) {
+            $field->delete();
+            return redirect()->route('field.index')->with('success', 'Field deleted successfully');
+        }
+        return redirect()->route('field.index')->with('error', 'Field not found');
     }
 }

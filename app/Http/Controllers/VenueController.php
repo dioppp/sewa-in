@@ -13,7 +13,8 @@ class VenueController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.venue');
+        $venues = Venue::all();
+        return view('pages.admin.venue', compact('venues'));
     }
 
     /**
@@ -29,7 +30,8 @@ class VenueController extends Controller
      */
     public function store(StoreVenueRequest $request)
     {
-        //
+        $venue = Venue::create($request->validated());
+        return redirect()->route('venue.index')->with('success', 'Venue created successfully');
     }
 
     /**
@@ -53,7 +55,11 @@ class VenueController extends Controller
      */
     public function update(UpdateVenueRequest $request, Venue $venue)
     {
-        //
+        if ($venue) {
+            $venue->update($request->validated());
+            return redirect()->route('venue.index')->with('success', 'Venue updated successfully');
+        }
+        return redirect()->route('venue.index')->with('error', 'Venue not found');
     }
 
     /**
@@ -61,6 +67,10 @@ class VenueController extends Controller
      */
     public function destroy(Venue $venue)
     {
-        //
+        if ($venue) {
+            $venue->delete();
+            return redirect()->route('venue.index')->with('success', 'Venue deleted successfully');
+        }
+        return redirect()->route('venue.index')->with('error', 'Venue not found');
     }
 }

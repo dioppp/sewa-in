@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->time('start_time')->unique();
+            $table->time('end_time')->unique();
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();

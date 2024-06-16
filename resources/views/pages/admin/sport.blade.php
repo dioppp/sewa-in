@@ -7,13 +7,15 @@
                 <div class="card">
                     <div class="card-header card-title fw-semibold mb-3">Sports</div>
                     @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert"
+                            style="margin-left: 20px; margin-right: 20px">
                             <strong>{{ session('success') }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
                     @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                            style="margin-left: 20px; margin-right: 20px">
                             <strong>{{ session('error') }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -45,6 +47,12 @@
                                             <h6 class="fw-semibold mb-0">Name</h6>
                                         </th>
                                         <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Created By</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Updated By</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0">Action</h6>
                                         </th>
                                     </tr>
@@ -57,6 +65,12 @@
                                             </td>
                                             <td class="border-bottom-0">
                                                 <p class="mb-0 fw-normal">{{ $s->name }}</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <h6 class="mb-0 fw-normal">{{ $s->created_by }}</h6>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <h6 class="mb-0 fw-normal">{{ $s->updated_by }}</h6>
                                             </td>
                                             <td class="border-bottom-0">
                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
@@ -72,7 +86,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td class="border-bottom-0 text-center" colspan="3">
+                                            <td class="border-bottom-0 text-center" colspan="5">
                                                 <h6 class="fw-semibold mb-0">No data available</h6>
                                             </td>
                                         </tr>
@@ -100,8 +114,13 @@
                                             <input type="hidden" value="-" name="updated_by">
                                             <div class="mb-3">
                                                 <label for="name" class="form-label">Name</label>
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                    required placeholder="Enter sport name">
+                                                <input type="text"
+                                                    class="form-control @error('name') is-invalid @enderror" id="name"
+                                                    name="name" value="{{ old('name') }}"
+                                                    placeholder="Enter sport name">
+                                                @error('name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger"
@@ -133,8 +152,12 @@
                                             <input type="hidden" value="{{ auth()->user()->name }}" name="updated_by">
                                             <div class="mb-3">
                                                 <label for="name" class="form-label">Name</label>
-                                                <input type="text" class="form-control" id="nameEdit" name="name"
-                                                    required placeholder="Enter sport name">
+                                                <input type="text"
+                                                    class="form-control @error('name') is-invalid @enderror"
+                                                    id="nameEdit" name="name" placeholder="Enter sport name">
+                                                @error('name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger"

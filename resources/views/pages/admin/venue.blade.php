@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header card-title fw-semibold mb-3">Schedules</div>
+                    <div class="card-header card-title fw-semibold mb-3">Venues</div>
                     @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert"
                             style="margin-left: 20px; margin-right: 20px">
@@ -24,13 +24,13 @@
                         <div class="d-flex align-items-center justify-content-between position-relative mb-3">
                             <div class="search-box">
                                 <input type="text" data-table-id="" id="searchBox" data-action="search"
-                                    class="form-control form-control-solid w-250px ps-13" placeholder="Search Schedule" />
+                                    class="form-control form-control-solid w-250px ps-13" placeholder="Search Venue" />
                             </div>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addSchedule">
+                                data-bs-target="#addVenue">
                                 <i class="ti ti-plus"></i>
                                 <span class="ms-2">
-                                    Add Schedule
+                                    Add Venue
                                 </span>
                             </button>
                         </div>
@@ -44,10 +44,13 @@
                                             <h6 class="fw-semibold mb-0">No</h6>
                                         </th>
                                         <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">Start Time</h6>
+                                            <h6 class="fw-semibold mb-0">Name</h6>
                                         </th>
                                         <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">End Time</h6>
+                                            <h6 class="fw-semibold mb-0">Address</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Description</h6>
                                         </th>
                                         <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0">Created By</h6>
@@ -61,41 +64,45 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($schedules as $s)
+                                    @forelse ($venues as $v)
                                         <tr>
                                             <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">{{ $loop->iteration }}</h6>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">
-                                                    {{ \Carbon\Carbon::parse($s->start_time)->format('H:i') }}</p>
+                                                <p class="mb-0 fw-normal">{{ $v->name }}</p>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">
-                                                    {{ \Carbon\Carbon::parse($s->end_time)->format('H:i') }}</p>
+                                                <p class="mb-0 fw-normal">{{ $v->address }}</p>
+                                            </td>
+                                            <td class="border-bottom-0"
+                                                style="width: 200px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                <p class="mb-0 fw-normal">{{ $v->description }}</p>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <h6 class="mb-0 fw-normal">{{ $s->created_by }}</h6>
+                                                <h6 class="mb-0 fw-normal">{{ $v->created_by }}</h6>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <h6 class="mb-0 fw-normal">{{ $s->updated_by }}</h6>
+                                                <h6 class="mb-0 fw-normal">{{ $v->updated_by }}</h6>
                                             </td>
                                             <td class="border-bottom-0">
                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#editSchedule" data-bs-id="{{ $s->id }}"
-                                                    data-bs-start-time="{{ $s->start_time }}"
-                                                    data-bs-end-time="{{ $s->end_time }}">
+                                                    data-bs-target="#editVenue" data-bs-id="{{ $v->id }}"
+                                                    data-bs-name="{{ $v->name }}"
+                                                    data-bs-address="{{ $v->address }}"
+                                                    data-bs-description="{{ $v->description }}"
+                                                    data-bs-updated="{{ auth()->user()->name }}">
                                                     <i class="ti ti-edit"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteAlert" data-bs-id="{{ $s->id }}">
+                                                    data-bs-target="#deleteAlert" data-bs-id="{{ $v->id }}">
                                                     <i class="ti ti-trash"></i>
                                                 </button>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td class="border-bottom-0 text-center" colspan="6">
+                                            <td class="border-bottom-0 text-center" colspan="7">
                                                 <h6 class="fw-semibold mb-0">No data available</h6>
                                             </td>
                                         </tr>
@@ -106,38 +113,46 @@
                         {{-- End Table --}}
 
                         {{-- Modal --}}
-                        <!-- Add Schedule -->
-                        <div class="modal fade" id="addSchedule" tabindex="-1" aria-labelledby="addScheduleLabel"
+                        <!-- Add Venue -->
+                        <div class="modal fade" id="addVenue" tabindex="-1" aria-labelledby="addVenueLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="addScheduleLabel">Add Schedule Form</h1>
+                                        <h1 class="modal-title fs-5" id="addVenueLabel">Add Venue Form</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('schedule.store') }}" method="POST" custom-action>
+                                        <form action="{{ route('venue.store') }}" method="POST" custom-action>
                                             @csrf
                                             <input type="hidden" value="{{ auth()->user()->name }}" name="created_by">
                                             <input type="hidden" value="-" name="updated_by">
                                             <div class="mb-3">
-                                                <label for="start_time" class="form-label">Start
-                                                    Time</label>
-                                                <input type="time"
-                                                    class="form-control @error('start_time') is-invalid @enderror"
-                                                    id="startTime" name="start_time" value="{{ old('start_time') }}">
-                                                @error('start_time')
+                                                <label for="name" class="form-label">Name</label>
+                                                <input type="text"
+                                                    class="form-control @error('name') is-invalid @enderror"
+                                                    id="name" name="name" value="{{ old('name') }}"
+                                                    placeholder="Enter venue name">
+                                                @error('name')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="end_time" class="form-label">End Time</label>
-                                                <input type="time"
-                                                    class="form-control @error('end_time') is-invalid @enderror"
-                                                    id="endTime" name="end_time" value="{{ old('end_time') }}"
-                                                    readonly>
-                                                @error('end_time')
+                                                <label for="address" class="form-label">Address</label>
+                                                <input type="text"
+                                                    class="form-control @error('address') is-invalid @enderror"
+                                                    id="address" name="address" value="{{ old('address') }}"
+                                                    placeholder="Enter venue address">
+                                                @error('address')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="description" class="form-label">Description</label>
+                                                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                                                    value="{{ old('description') }}" placeholder="Enter venue description"></textarea>
+                                                @error('description')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -151,15 +166,15 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- End Add Schedule --}}
+                        {{-- End Add Venue --}}
 
-                        {{-- Edit Schedule --}}
-                        <div class="modal fade" id="editSchedule" tabindex="-1" aria-labelledby="editScheduleLabel"
+                        {{-- Edit Venue --}}
+                        <div class="modal fade" id="editVenue" tabindex="-1" aria-labelledby="editVenueLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="editScheduleLabel">Edit Schedule Form</h1>
+                                        <h1 class="modal-title fs-5" id="editVenueLabel">Edit Venue Form</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -170,21 +185,28 @@
                                             <input type="hidden" name="id" id="idEdit">
                                             <input type="hidden" value="{{ auth()->user()->name }}" name="updated_by">
                                             <div class="mb-3">
-                                                <label for="start_time" class="form-label">Start Time</label>
-                                                <input type="time"
-                                                    class="form-control @error('start_time') is-invalid @enderror"
-                                                    id="startTimeEdit" name="start_time" placeholder="Enter start time">
-                                                @error('start_time')
+                                                <label for="name" class="form-label">Name</label>
+                                                <input type="text"
+                                                    class="form-control @error('name') is-invalid @enderror"
+                                                    id="nameEdit" name="name" placeholder="Enter venue name">
+                                                @error('name')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="end_time" class="form-label">End Time</label>
-                                                <input type="time"
-                                                    class="form-control @error('end_time') is-invalid @enderror"
-                                                    id="endTimeEdit" name="end_time" placeholder="Enter end time"
-                                                    readonly>
-                                                @error('end_time')
+                                                <label for="address" class="form-label">Address</label>
+                                                <input type="text"
+                                                    class="form-control @error('address') is-invalid @enderror"
+                                                    id="addressEdit" name="address" placeholder="Enter venue address">
+                                                @error('address')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="description" class="form-label">Description</label>
+                                                <textarea class="form-control @error('description') is-invalid @enderror" id="descriptionEdit" name="description"
+                                                    placeholder="Enter venue description"></textarea>
+                                                @error('description')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -198,7 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- End Edit Schedule --}}
+                        {{-- End Edit Venue --}}
 
                         {{-- Delete Alert --}}
                         <div class="modal fade" id="deleteAlert" tabindex="-1" aria-labelledby="deleteAlertLabel"
@@ -237,37 +259,8 @@
 @endsection
 
 @push('scripts')
-    {{-- End Time Input --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Function to add an hour and update the corresponding end time input
-            function addHourAndUpdateEndTime(startTimeInputId, endTimeInputId) {
-                const startTimeInput = document.getElementById(startTimeInputId);
-                const endTimeInput = document.getElementById(endTimeInputId);
-
-                startTimeInput.addEventListener('change', function() {
-                    const startTime = this.value;
-                    if (startTime) {
-                        // Create a date object in UTC
-                        const startTimeDate = new Date(`1970-01-01T${startTime}:00Z`);
-                        // Add 1 hour in milliseconds
-                        const endTimeDate = new Date(startTimeDate.getTime() + 60 * 60 * 1000);
-                        // Convert to ISO string and then to HH:mm format, ensuring UTC is used
-                        const endTime = endTimeDate.toISOString().substring(11, 16);
-                        endTimeInput.value = endTime;
-                    }
-                });
-            }
-
-            // Apply the logic to both sets of start and end time inputs
-            addHourAndUpdateEndTime('startTime', 'endTime');
-            addHourAndUpdateEndTime('startTimeEdit', 'endTimeEdit');
-        });
-    </script>
-
-    {{-- Edit Modal --}}
-    <script>
-        const exampleModal = document.getElementById('editSchedule')
+        const exampleModal = document.getElementById('editVenue')
         if (exampleModal) {
             exampleModal.addEventListener('show.bs.modal', event => {
                 // Button that triggered the modal
@@ -275,18 +268,24 @@
 
                 // Extract info from data-bs-* attributes
                 const id = button.getAttribute('data-bs-id');
-                const startTime = button.getAttribute('data-bs-start-time');
-                const endTime = button.getAttribute('data-bs-end-time');
+                const name = button.getAttribute('data-bs-name');
+                const address = button.getAttribute('data-bs-address');
+                const description = button.getAttribute('data-bs-description');
+                const updated = button.getAttribute('data-bs-updated');
 
                 // Update the modal's content.
-                document.getElementById('editForm').setAttribute('action', '/schedule/' + id);
+                document.getElementById('editForm').setAttribute('action', '/venue/' + id);
                 const modalBodyInputId = exampleModal.querySelector('#idEdit');
-                const modalBodyInputStartTime = exampleModal.querySelector('#startTimeEdit');
-                const modalBodyInputEndTime = exampleModal.querySelector('#endTimeEdit');
+                const modalBodyInputName = exampleModal.querySelector('#nameEdit');
+                const modalBodyInputAddress = exampleModal.querySelector('#addressEdit');
+                const modalBodyInputDescription = exampleModal.querySelector('#descriptionEdit');
+                const modalBodyInputUpdated = exampleModal.querySelector('#updatedEdit');
 
                 modalBodyInputId.value = id;
-                modalBodyInputStartTime.value = startTime;
-                modalBodyInputEndTime.value = endTime;
+                modalBodyInputName.value = name;
+                modalBodyInputAddress.value = address;
+                modalBodyInputDescription.value = description;
+                modalBodyInputUpdated.value = updated;
             })
         }
     </script>
@@ -298,7 +297,7 @@
             deleteModal.addEventListener('show.bs.modal', event => {
                 const button = event.relatedTarget;
                 const id = button.getAttribute('data-bs-id');
-                document.getElementById('deleteForm').setAttribute('action', '/schedule/' + id);
+                document.getElementById('deleteForm').setAttribute('action', '/venue/' + id);
                 const modalBodyInputId = deleteModal.querySelector('#idDelete');
                 modalBodyInputId.value = id;
             })

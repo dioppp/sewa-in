@@ -23,6 +23,7 @@ use App\Http\Controllers\TransactionController;
 |
 */
 Route::get('/', [GuestController::class, 'index']);
+Route::get('/venue', [GuestController::class, 'show']);
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role'])->group(function () {

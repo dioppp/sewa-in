@@ -21,8 +21,8 @@ class Field extends Model
         return $this->belongsTo(Venue::class, 'venue_id', 'id');
     }
 
-    public function prices()
+    public function orders()
     {
-        return $this->hasMany(Price::class, 'field_id', 'id');
+        return $this->hasMany(Order::class, 'field_id', 'id');
     }
 }
