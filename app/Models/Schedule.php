@@ -11,8 +11,8 @@ class Schedule extends Model
 
     protected $guarded = [];
 
-    public function prices()
+    public function orders()
     {
-        return $this->hasMany(Price::class, 'schedule_id', 'id');
+        return $this->hasMany(Order::class, 'schedule_id', 'id');
     }
 }
