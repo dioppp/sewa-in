@@ -7,13 +7,15 @@
                 <div class="card">
                     <div class="card-header card-title fw-semibold mb-3">Users</div>
                     @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert"
+                            style="margin-left: 20px; margin-right: 20px">
                             <strong>{{ session('success') }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
                     @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                            style="margin-left: 20px; margin-right: 20px">
                             <strong>{{ session('error') }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -91,9 +93,10 @@
                                                     data-bs-phone="{{ $u->phone }}">
                                                     <i class="ti ti-edit"></i>
                                                 </button>
-                                                <a href="" class="btn btn-sm btn-danger">
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteAlert" data-bs-id="{{ $u->id }}">
                                                     <i class="ti ti-trash"></i>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     @empty
