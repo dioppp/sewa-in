@@ -42,9 +42,9 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
 
-    // Activate SimpleLightbox plugin for portfolio items
+    // Activate SimpleLightbox plugin for venue items
     new SimpleLightbox({
-        elements: '#portfolio a.portfolio-box'
+        elements: '#venue a.venue-box'
     });
 
     window.addEventListener('scroll', () => {
