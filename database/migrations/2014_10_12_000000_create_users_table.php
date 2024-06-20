@@ -20,11 +20,12 @@ return new class extends Migration
             $table->string('address');
             $table->date('birthdate');
             $table->string('phone');
-            $table->enum('role', ['admin', 'user'])->default('user');
+            $table->enum('role', ['admin', 'user', 'owner'])->default('user');
             $table->string('created_by');
             $table->string('updated_by');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

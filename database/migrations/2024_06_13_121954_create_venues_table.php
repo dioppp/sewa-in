@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('venues', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('name')->unique();
             $table->string('address');
             $table->string('description');
+            $table->string('photo');
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
