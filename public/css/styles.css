@@ -77,6 +77,7 @@
   --bs-link-hover-color: #174623;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
+  --logo-color: #226634;
 }
 
 *,
@@ -10993,4 +10994,13 @@ header.masthead h1, header.masthead .h1 {
 }
 #portfolio .container-fluid .portfolio-box:hover .portfolio-box-caption, #portfolio .container-sm .portfolio-box:hover .portfolio-box-caption, #portfolio .container-md .portfolio-box:hover .portfolio-box-caption, #portfolio .container-lg .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xl .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xxl .portfolio-box:hover .portfolio-box-caption {
   opacity: 1;
+}
+
+.logo svg{
+    width: 200px;
+}
+
+.logo-scroll svg path {
+    width: 200px;
+    fill: #226634;
 }
