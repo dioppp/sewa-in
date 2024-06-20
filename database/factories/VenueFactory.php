@@ -17,9 +17,11 @@ class VenueFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => 1,
             'name' => fake()->name(),
             'address' => fake()->address(),
             'description' => fake()->paragraph(),
+            'photo' => 'venues/' . fake()->image('public/storage/venues', 640, 480, null, false),
             'created_by' => 'Seeder',
             'updated_by' => 'Seeder',
             'created_at' => now(),

@@ -20,6 +20,7 @@ class FieldSeeder extends Seeder
                 'name' => 'Field ' . $i,
                 'is_indoor' => $i % 2 === 0,
                 'material' => 'Vinyl',
+                'photo' => 'field-' . $i . '.jpg',
                 'created_by' => 'Seeder',
                 'updated_by' => 'Seeder',
                 'created_at' => now(),
