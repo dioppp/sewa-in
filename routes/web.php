@@ -26,11 +26,12 @@ Route::get('/', [GuestController::class, 'index']);
 Route::get('/venue', [GuestController::class, 'show']);
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('pages.admin.dashboard');
+    })->name('dashboard');
+
     Route::middleware(['role'])->group(function () {
         // Admin
-        Route::get('/dashboard', function () {
-            return view('pages.admin.dashboard');
-        })->name('dashboard');
 
         // Schedule
         Route::resource('/schedule', ScheduleController::class);

@@ -18,6 +18,6 @@ class Role
         if (auth()->user()->role == 'admin') {
             return $next($request);
         }
-        return redirect()->route('home')->with('error', 'Permission Denied!');
+        return redirect()->route('dashboard')->with('error', 'Permission Denied!');
     }
 }
