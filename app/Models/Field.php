@@ -19,7 +19,7 @@ class Field extends Model
 
     public function venue()
     {
-        return $this->belongsTo(Venue::class, 'venue_id', 'id');
+        return $this->belongsTo(Venue::class, 'venue_id', 'id')->withTrashed();
     }
 
     public function orders()

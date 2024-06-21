@@ -14,7 +14,7 @@ class Order extends Model
 
     public function field()
     {
-        return $this->belongsTo(Field::class, 'field_id', 'id');
+        return $this->belongsTo(Field::class, 'field_id', 'id')->withTrashed();
     }
 
     public function schedule()
