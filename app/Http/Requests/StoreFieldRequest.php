@@ -29,6 +29,7 @@ class StoreFieldRequest extends FormRequest
             'material' => ['required', 'string', 'max:100'],
             'created_by' => ['required', 'string', 'max:20'],
             'updated_by' => ['required', 'string', 'max:20'],
+            'photo' => 'required|image|file',
         ];
     }
 }

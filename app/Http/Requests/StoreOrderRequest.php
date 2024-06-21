@@ -11,7 +11,7 @@ class StoreOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,11 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             //
+            'field_id' => ['required', 'exists:fields,id'],
+            'schedule_id' => ['required', 'exists:schedules,id'],
+            'price' => ['required', 'numeric'],
+            'created_by' => ['required', 'string'],
+            'updated_by' => ['required', 'string'],
         ];
     }
 }

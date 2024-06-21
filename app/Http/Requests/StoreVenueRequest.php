@@ -23,8 +23,10 @@ class StoreVenueRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50', 'unique:venues,name'],
+            'user_id' => 'required|exists:users,id',
             'address' => 'required|string|max:255',
             'description' => 'required|string|max:255',
+            'photo' => 'required|image|file',
             'created_by' => 'required|string|max:50',
             'updated_by' => 'required|string|max:50'
         ];
