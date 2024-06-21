@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Field;
+use App\Models\Venue;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $venues = Venue::all();
+        return view('pages.admin.dashboard', compact('venues'));
+    }
+
+    public function showFields(Venue $venue)
+    {
+        $fields = Field::where('venue_id', $venue->id)->get();
+        return view('pages.admin.dashboard', compact('fields'));
     }
 }

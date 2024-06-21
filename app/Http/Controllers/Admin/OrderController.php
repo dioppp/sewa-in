@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Field;
+use App\Models\Schedule;
+use App\Models\Venue;
 
 class OrderController extends Controller
 {
@@ -13,7 +17,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.order');
+        $venues = Venue::all();
+        $fields = Field::all();
+        $schedules = Schedule::all();
+        $orders = Order::all();
+
+        return view('pages.admin.order', compact('orders', 'venues', 'fields', 'schedules'));
     }
 
     /**

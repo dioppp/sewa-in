@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Field;
 use App\Http\Requests\StoreFieldRequest;
 use App\Http\Requests\UpdateFieldRequest;
+use App\Models\Sport;
+use App\Models\Venue;
 
 class FieldController extends Controller
 {
@@ -14,7 +17,10 @@ class FieldController extends Controller
     public function index()
     {
         $fields = Field::all();
-        return view('pages.admin.field', compact('fields'));
+        $venues = Venue::all();
+        $sports = Sport::all();
+
+        return view('pages.admin.field', compact('fields', 'venues', 'sports'));
     }
 
     /**
@@ -30,7 +36,7 @@ class FieldController extends Controller
      */
     public function store(StoreFieldRequest $request)
     {
-        $field = Field::create($request->validated());
+        Field::create($request->validated());
         return redirect()->route('field.index')->with('success', 'Field created successfully');
     }
 

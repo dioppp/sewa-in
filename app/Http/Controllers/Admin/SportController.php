@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Sport;
 use App\Http\Requests\StoreSportRequest;
 use App\Http\Requests\UpdateSportRequest;
@@ -30,7 +31,7 @@ class SportController extends Controller
      */
     public function store(StoreSportRequest $request)
     {
-        $sport = Sport::create($request->validated());
+        Sport::create($request->validated());
         return redirect()->route('sport.index')->with('success', 'Sport created successfully');
     }
 

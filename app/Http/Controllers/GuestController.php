@@ -12,4 +12,9 @@ class GuestController extends Controller
         $venues = Venue::all();
         return view('guest', compact('venues'));
     }
+
+    public function registerVenue()
+    {
+        return view('auth.owner');
+    }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
@@ -13,7 +14,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.transaction');
+        $transactions = Transaction::all();
+        return view('pages.admin.transaction', compact('transactions'));
     }
 
     /**
