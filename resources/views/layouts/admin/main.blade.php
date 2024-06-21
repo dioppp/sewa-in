@@ -4,8 +4,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sewa.in - Admin</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/favicon.png') }}" />
+    <title>
+        Sewa.in
+        @if (auth()->check())
+            {{-- Check if user is authenticated --}}
+            @switch(auth()->user()->role)
+                @case('admin')
+                    - Admin
+                @break
+
+                @case('owner')
+                    - Owner
+                @break
+            @endswitch
+        @endif
+    </title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/logo-green-text.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
 </head>
 
@@ -13,7 +27,7 @@
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
-        @include('layouts.admin.sidebar')
+        @include('layouts.sidebar')
         <!--  Main wrapper -->
         <div class="body-wrapper">
             @include('layouts.admin.header')

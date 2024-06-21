@@ -40,7 +40,7 @@
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0" style="">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#register">Register Venue</a></li>
                     <li class="nav-item"><a class="nav-link" href="#venue">Venue</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     <li class="nav-item">
@@ -68,21 +68,24 @@
             </div>
         </div>
     </header>
-    <!-- About-->
-    <section class="page-section bg-primary" id="about">
+    <!-- Register-->
+    <section class="page-section bg-primary" id="register">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <h2 class="text-white mt-0">We've got what you need!</h2>
+                    <h2 class="text-white mt-0">Have your Own Venue?</h2>
                     <hr class="divider divider-light" />
-                    <p class="text-white-75 mb-4">Lihat jadwal yang tersedia dan langsung pesan lapangan kesayanganmu di
-                        mana saja dan kapan saja!</p>
+                    <form action="{{ route('register.venue') }}" method="GET" custom-action>
+                        @csrf
+                        <button class="btn btn-light btn-xl">Register your Venue Here!</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- Venue -->
-    <div id="venue">
+    {{-- <div id="venue">
         <div class="container-fluid p-0">
             <div class="row g-0">
                 <div class="col-lg-4 col-sm-6">
@@ -153,7 +156,70 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+    {{-- Venue --}}
+    <div id="venue">
+        <section class="py-5 text-center container">
+            <div class="row py-lg-4">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Venue</h1>
+                    <hr class="divider" />
+                    <p>Lihat jadwal yang tersedia dan langsung pesan lapangan kesayanganmu di mana saja dan kapan saja!
+                    </p>
+                </div>
+            </div>
+        </section>
+        <div class="album py-5 bg-body-tertiary">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="100%"
+                                src="{{ asset('assets/img/sports/fullsize/sports-1.jpg') }}" role="img">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Venue Name
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-body-secondary">Running</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="100%"
+                                src="{{ asset('assets/img/sports/fullsize/sports-1.jpg') }}" role="img">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Venue Name
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-body-secondary">Running</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="100%"
+                                src="{{ asset('assets/img/sports/fullsize/sports-1.jpg') }}" role="img">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Venue Name
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-body-secondary">Running</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <!-- Contact-->
     <section class="page-section" id="contact">
         <div class="container px-4 px-lg-5">
