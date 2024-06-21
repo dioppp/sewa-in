@@ -21,19 +21,6 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between position-relative mb-3">
-                            <div class="search-box">
-                                <input type="text" data-table-id="" id="searchBox" data-action="search"
-                                    class="form-control form-control-solid w-250px ps-13" placeholder="Search User" />
-                            </div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUser">
-                                <i class="ti ti-plus"></i>
-                                <span class="ms-2">
-                                    Add User
-                                </span>
-                            </button>
-                        </div>
-
                         {{-- Table --}}
                         <div class="table-responsive">
                             <table class="table text-nowrap mb-0 align-middle">

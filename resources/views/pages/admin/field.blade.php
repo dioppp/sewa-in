@@ -59,6 +59,9 @@
                                             <h6 class="fw-semibold mb-0">Material</h6>
                                         </th>
                                         <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Photo</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0">Created By</h6>
                                         </th>
                                         <th class="border-bottom-0">
@@ -89,6 +92,13 @@
                                             </td>
                                             <td class="border-bottom-0">
                                                 <p class="mb-0 fw-normal">{{ $f->material }}</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#modalPhoto"
+                                                    data-bs-photo="{{ $f->photo }}">
+                                                    <i class="ti ti-photo"></i>
+                                                </button>
                                             </td>
                                             <td class="border-bottom-0">
                                                 <p class="mb-0 fw-normal">{{ $f->created_by }}</p>
@@ -153,8 +163,8 @@
                                                 <select class="form-select @error('venue_id') is-invalid @enderror"
                                                     name="venue_id" id="venue_id">
                                                     <option value="" disabled selected>Select venue</option>
-                                                    @foreach ($fields as $f)
-                                                        <option value="{{ $f->venue_id }}">{{ $f->venue->name }}
+                                                    @foreach ($venues as $v)
+                                                        <option value="{{ $v->id }}">{{ $v->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -167,8 +177,8 @@
                                                 <select class="form-select @error('sport_id') is-invalid @enderror"
                                                     name="sport_id" id="sport_id">
                                                     <option value="" disabled selected>Select sport</option>
-                                                    @foreach ($fields as $f)
-                                                        <option value="{{ $f->sport_id }}">{{ $f->sport->name }}
+                                                    @foreach ($sports as $s)
+                                                        <option value="{{ $s->id }}">{{ $s->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -240,8 +250,8 @@
                                                 <select class="form-select @error('venue_id') is-invalid @enderror"
                                                     name="venue_id" id="venueEdit">
                                                     <option value="" disabled>Select venue</option>
-                                                    @foreach ($fields as $f)
-                                                        <option value="{{ $f->venue_id }}">{{ $f->venue->name }}
+                                                    @foreach ($venues as $v)
+                                                        <option value="{{ $v->id }}">{{ $v->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -254,8 +264,8 @@
                                                 <select class="form-select @error('sport_id') is-invalid @enderror"
                                                     name="sport_id" id="sportEdit">
                                                     <option value="" disabled>Select sport</option>
-                                                    @foreach ($fields as $f)
-                                                        <option value="{{ $f->sport_id }}">{{ $f->sport->name }}
+                                                    @foreach ($sports as $s)
+                                                        <option value="{{ $s->id }}">{{ $s->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -324,6 +334,24 @@
                         </div>
                         {{-- End Delete Alert --}}
 
+                        {{-- Modal Photo --}}
+                        <div class="modal fade" id="modalPhoto" tabindex="-1" aria-labelledby="modalPhotoLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="modalPhotoLabel">Field Photo</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="" id="photo" class="img-fluid" alt="Field Photo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- End Modal Photo --}}
+
                         {{-- End Modal --}}
                     </div>
                 </div>
@@ -348,7 +376,7 @@
                 const sport = button.getAttribute('data-bs-sport');
                 const type = button.getAttribute('data-bs-type');
                 const material = button.getAttribute('data-bs-material');
-                console.log(id, name, venue, sport, type, material);
+
                 // Update the modal's content.
                 document.getElementById('editForm').setAttribute('action', '/field/' + id);
                 const modalBodyInputId = exampleModal.querySelector('#idEdit');
@@ -375,7 +403,7 @@
             deleteModal.addEventListener('show.bs.modal', event => {
                 const button = event.relatedTarget;
                 const id = button.getAttribute('data-bs-id');
-                document.getElementById('deleteForm').setAttribute('action', '/sport/' + id);
+                document.getElementById('deleteForm').setAttribute('action', '/field/' + id);
                 const modalBodyInputId = deleteModal.querySelector('#idDelete');
                 modalBodyInputId.value = id;
             })

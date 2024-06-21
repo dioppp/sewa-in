@@ -53,6 +53,9 @@
                                             <h6 class="fw-semibold mb-0">Description</h6>
                                         </th>
                                         <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Photo</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0">Created By</h6>
                                         </th>
                                         <th class="border-bottom-0">
@@ -78,6 +81,12 @@
                                             <td class="border-bottom-0"
                                                 style="width: 200px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                                 <p class="mb-0 fw-normal">{{ $v->description }}</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#modalPhoto" data-bs-photo="{{ $v->photo }}">
+                                                    <i class="ti ti-photo"></i>
+                                                </button>
                                             </td>
                                             <td class="border-bottom-0">
                                                 <h6 class="mb-0 fw-normal">{{ $v->created_by }}</h6>
@@ -124,8 +133,10 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('venue.store') }}" method="POST" custom-action>
+                                        <form action="{{ route('venue.store') }}" method="POST" custom-action
+                                            enctype="multipart/form-data">
                                             @csrf
+                                            <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
                                             <input type="hidden" value="{{ auth()->user()->name }}" name="created_by">
                                             <input type="hidden" value="-" name="updated_by">
                                             <div class="mb-3">
@@ -151,8 +162,17 @@
                                             <div class="mb-3">
                                                 <label for="description" class="form-label">Description</label>
                                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                                                    value="{{ old('description') }}" placeholder="Enter venue description"></textarea>
+                                                    placeholder="Enter venue description">{{ old('description') }}</textarea>
                                                 @error('description')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="photo" class="form-label">Photo</label>
+                                                <input type="file"
+                                                    class="form-control @error('photo') is-invalid @enderror"
+                                                    id="photo" accept=".jpg, .jpeg, .png" name="photo">
+                                                @error('photo')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -250,6 +270,24 @@
                         </div>
                         {{-- End Delete Alert --}}
 
+                        {{-- Modal Photo --}}
+                        <div class="modal fade" id="modalPhoto" tabindex="-1" aria-labelledby="modalPhotoLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="modalPhotoLabel">Venue Photo</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="" id="photo" class="img-fluid" alt="Venue Photo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- End Modal Photo --}}
+
                         {{-- End Modal --}}
                     </div>
                 </div>
@@ -259,6 +297,7 @@
 @endsection
 
 @push('scripts')
+    {{-- Edit Modal --}}
     <script>
         const exampleModal = document.getElementById('editVenue')
         if (exampleModal) {
