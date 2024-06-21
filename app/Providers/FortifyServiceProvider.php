@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -21,6 +22,19 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+            public function toResponse($request)
+            {
+                if ($request->user()->role == 'owner') {
+                    if ($request->user()->venue == null) {
+                        return redirect()->route('owner-venue.index')->with('message', 'Welcome back, owner! Please add your venue first.');
+                    }
+                    return redirect()->route('owner-venue.index')->with('message', 'Welcome back, owner!');
+                } else {
+                    return redirect()->route('dashboard');
+                }
+            }
+        });
     }
 
     /**

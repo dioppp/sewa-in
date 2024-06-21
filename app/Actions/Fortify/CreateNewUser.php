@@ -32,6 +32,7 @@ class CreateNewUser implements CreatesNewUsers
             'address' => ['required', 'string', 'max:255'],
             'birthdate' => ['required', 'date'],
             'phone' => ['required', 'string', 'max:255'],
+            'role' => ['string', 'max:5'],
         ])->validate();
 
         return User::create([
@@ -41,6 +42,7 @@ class CreateNewUser implements CreatesNewUsers
             'address' => $validated['address'],
             'birthdate' => $validated['birthdate'],
             'phone' => $validated['phone'],
+            'role' => $validated['role'] ?? 'user',
             'created_by' => $validated['name'],
             'updated_by' => '-',
         ]);
