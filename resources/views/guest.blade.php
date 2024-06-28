@@ -84,80 +84,6 @@
         </div>
     </section>
 
-    <!-- Venue -->
-    {{-- <div id="venue">
-        <div class="container-fluid p-0">
-            <div class="row g-0">
-                <div class="col-lg-4 col-sm-6">
-                    <a class="venue-box" href="{{ asset('assets/img/sports/fullsize/sports-1.jpg') }}"
-                        title="Jakarta International Stadium">
-                        <img class="img-fluid" src="{{ asset('assets/img/sports/thumbnails/sports-1.jpg') }}"
-                            alt="..." />
-                        <div class="venue-box-caption">
-                            <div class="project-category text-white-50">Running</div>
-                            <div class="project-name">Jakarta International Stadium</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="venue-box" href="{{ asset('assets/img/sports/fullsize/sports-5.jpg') }}"
-                        title="Asaba Green Arena">
-                        <img class="img-fluid" src="{{ asset('assets/img/sports/thumbnails/sports-5.jpg') }}"
-                            alt="..." />
-                        <div class="venue-box-caption">
-                            <div class="project-category text-white-50">Mini Soccer</div>
-                            <div class="project-name">Asaba Green Arena</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="venue-box" href="{{ asset('assets/img/sports/fullsize/sports-6.jpg') }}"
-                        title="Gelora Bung Karno">
-                        <img class="img-fluid" src="{{ asset('assets/img/sports/thumbnails/sports-6.jpg') }}"
-                            alt="..." />
-                        <div class="venue-box-caption">
-                            <div class="project-category text-white-50">Football</div>
-                            <div class="project-name">Gelora Bung Karno</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="venue-box" href="{{ asset('assets/img/sports/fullsize/sports-2.jpg') }}"
-                        title="Indoor Tennis Senayan">
-                        <img class="img-fluid" src="{{ asset('assets/img/sports/thumbnails/sports-2.jpg') }}"
-                            alt="..." />
-                        <div class="venue-box-caption">
-                            <div class="project-category text-white-50">Tennis</div>
-                            <div class="project-name">Indoor Tennis Senayan</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="venue-box" href="{{ asset('assets/img/sports/fullsize/sports-8.jpg') }}"
-                        title="GOR Kedopok">
-                        <img class="img-fluid" src="{{ asset('assets/img/sports/thumbnails/sports-8.jpg') }}"
-                            alt="..." />
-                        <div class="venue-box-caption">
-                            <div class="project-category text-white-50">Swimming</div>
-                            <div class="project-name">GOR Kedopok</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="venue-box" href="{{ asset('assets/img/sports/fullsize/sports-11.jpg') }}"
-                        title="BBS KJ Secondary Sports Field">
-                        <img class="img-fluid" src="{{ asset('assets/img/sports/thumbnails/sports-11.jpg') }}"
-                            alt="..." />
-                        <div class="venue-box-caption p-3">
-                            <div class="project-category text-white-50">Basketball</div>
-                            <div class="project-name">BBS KJ Secondary Sports Field</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
     {{-- Venue --}}
     <div id="venue">
         <section class="py-5 text-center container">
@@ -173,48 +99,23 @@
         <div class="album py-5 bg-body-tertiary">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img class="bd-placeholder-img card-img-top" width="100%" height="100%"
-                                src="{{ asset('assets/img/sports/fullsize/sports-1.jpg') }}" role="img">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Venue Name
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-body-secondary">Running</small>
+                    @foreach ($venues as $venue)
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="300"
+                                    src="{{ asset('storage/' . $venue->photo) }}"
+                                    aria-label="Placeholder: Thumbnail">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        {{ $venue->name }}
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">{{ $venue->address }}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img class="bd-placeholder-img card-img-top" width="100%" height="100%"
-                                src="{{ asset('assets/img/sports/fullsize/sports-1.jpg') }}" role="img">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Venue Name
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-body-secondary">Running</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img class="bd-placeholder-img card-img-top" width="100%" height="100%"
-                                src="{{ asset('assets/img/sports/fullsize/sports-1.jpg') }}" role="img">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Venue Name
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-body-secondary">Running</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
