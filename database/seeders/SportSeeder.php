@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Database\Factories\SportFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SportSeeder extends Seeder
 {
@@ -13,6 +13,28 @@ class SportSeeder extends Seeder
      */
     public function run(): void
     {
-        SportFactory::new()->count(3)->create();
+        DB::table('sports')->insert([
+            'name' => 'Badminton',
+            'created_by' => 'Seeder',
+            'updated_by' => 'Seeder',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('sports')->insert([
+            'name' => 'Tenis',
+            'created_by' => 'Seeder',
+            'updated_by' => 'Seeder',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('sports')->insert([
+            'name' => 'Futsal',
+            'created_by' => 'Seeder',
+            'updated_by' => 'Seeder',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

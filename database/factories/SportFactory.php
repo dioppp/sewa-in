@@ -17,11 +17,7 @@ class SportFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'created_by' => 'Seeder',
-            'updated_by' => 'Seeder',
-            'created_at' => now(),
-            'updated_at' => now()
+            //
         ];
     }
 }
