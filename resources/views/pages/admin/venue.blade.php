@@ -199,7 +199,8 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" method="POST" id="editForm" custom-action>
+                                        <form action="" method="POST" id="editForm" custom-action
+                                            enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <input type="hidden" name="id" id="idEdit">
@@ -227,6 +228,15 @@
                                                 <textarea class="form-control @error('description') is-invalid @enderror" id="descriptionEdit" name="description"
                                                     placeholder="Enter venue description"></textarea>
                                                 @error('description')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="photo" class="form-label">Photo</label>
+                                                <input type="file"
+                                                    class="form-control @error('photo') is-invalid @enderror"
+                                                    id="photo" accept=".jpg, .jpeg, .png" name="photo">
+                                                @error('photo')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

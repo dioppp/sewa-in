@@ -34,13 +34,10 @@ class VenueController extends Controller
         $validatedData = $request->validated();
 
         if ($request->hasFile('photo')) {
-            // Store the file and get the path
             $path = $request->file('photo')->store('venues');
-            // Save the path in the validated data array
             $validatedData['photo'] = $path;
         }
 
-        // Create the venue with the validated data, including the photo path
         Venue::create($validatedData);
 
         return redirect()->route('venue.index')->with('success', 'Venue created successfully');
@@ -68,7 +65,14 @@ class VenueController extends Controller
     public function update(UpdateVenueRequest $request, Venue $venue)
     {
         if ($venue) {
-            $venue->update($request->validated());
+            $data = $request->validated();
+
+            if ($request->hasFile('photo')) {
+                $path = $request->file('photo')->store('venues');
+                $data['photo'] = $path;
+            }
+            $venue->update($data);
+
             return redirect()->route('venue.index')->with('success', 'Venue updated successfully');
         }
         return redirect()->route('venue.index')->with('error', 'Venue not found');

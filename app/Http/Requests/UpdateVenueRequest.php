@@ -25,6 +25,7 @@ class UpdateVenueRequest extends FormRequest
             'id' => 'required|integer|exists:venues,id',
             'name' => ['required', 'string', 'max:50', 'unique:venues,name,' . $this->id],
             'address' => 'required|string|max:255',
+            'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
             'description' => 'required|string|max:255',
             'updated_by' => 'required|string|max:50'
         ];
