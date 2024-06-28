@@ -26,7 +26,6 @@ class HomeController extends Controller
     public function index()
     {
         $venues = Venue::all();
-        dd($venues);
         return view('pages.admin.dashboard', compact('venues'));
     }
 
